@@ -90,7 +90,7 @@ function App() {
       <br />
         {weather}
         <div>
-          <img alt="weather" src={"http://openweathermap.org/img/wn/" + weatherIcon + ".png"} />
+          <img alt="weather" src={"https://openweathermap.org/img/wn/" + weatherIcon + ".png"} />
           <div className="comment">{comment()}</div>
         </div>
       </div>
