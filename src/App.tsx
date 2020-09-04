@@ -6,7 +6,7 @@ import Loader from 'react-loader-spinner'
 
 
 function App() {
-  
+
 
   const [temperature, setTemp] = useState<number>(0)
   let [weather, setWeather] = useState<string>('')
@@ -67,16 +67,20 @@ function App() {
   }
   console.log(comment)
 
+
   if (loading) {
     return (
-      <Loader
-         type="Puff"
-         color="#00BFFF"
-         height={100}
-         width={100}
-    />
+      <div className="loader">
+        <Loader
+          type="Puff"
+          color="#00BFFF"
+          height={100}
+          width={100}
+        />
+      </div>
     )
   }
+
 
 
   return (
