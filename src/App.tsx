@@ -7,8 +7,7 @@ import Loader from 'react-loader-spinner'
 
 function App() {
   
-  const [latitude, setLatitude] = useState<number>(0)
-  const [longitude, setLongitude] = useState<number>(0)
+
   const [temperature, setTemp] = useState<number>(0)
   let [weather, setWeather] = useState<string>('')
   const [city, setCity] = useState<string>('')
@@ -25,8 +24,6 @@ function App() {
   const positionReceived = (pos: Position) => {
     const lat = pos.coords.latitude
     const long = pos.coords.longitude
-    setLatitude(lat)
-    setLongitude(long)
 
     axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=19846416d35dbf0e051ae8b93651a19c`)
       .then((res) => {
@@ -80,7 +77,7 @@ function App() {
     />
     )
   }
-  
+
 
   return (
     <div className="App">
