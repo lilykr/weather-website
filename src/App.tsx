@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios"
 import './App.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
+
 
 function App() {
+  
   const [latitude, setLatitude] = useState<number>(0)
   const [longitude, setLongitude] = useState<number>(0)
   const [temperature, setTemp] = useState<number>(0)
   let [weather, setWeather] = useState<string>('')
   const [city, setCity] = useState<string>('')
   const [weatherIcon, setWeatherIcon] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(true)
 
   // const ["le state que tu veux", "la fonction pour set la variable"] = useState<"Le type du state">("La valeur par défault")
 
@@ -30,6 +35,7 @@ function App() {
         setWeather(res.data.weather[0].main)
         setCity(res.data.name)
         setWeatherIcon(res.data.weather[0].icon)
+        setLoading(false)
       })
 
       .catch(error => {
@@ -42,47 +48,67 @@ function App() {
   console.log(weather)
   console.log(weatherIcon)
 
-
-  /*const renderIcon = () => {
+  const comment = () => {
     switch (weather) {
       case "Clear":
-        return <img src="http://openweathermap.org/img/wn/01d.png" />
+        return "The sun is shinning, have a wonderful day !"
       case "Clouds":
-        return  <img src="http://openweathermap.org/img/wn/03d.png" />
+        return "Well, that's ok, clouds make for a beautiful dreamy landscape !"
       case "Thunderstorm":
-        return  <img src="http://openweathermap.org/img/wn/11d.png" />
+        return "Good luck today, cover yourself !"
       case "Drizzle":
-        return  <img src="http://openweathermap.org/img/wn/09d.png" />
+        return "Put an umbrella over your head and a smile on your face"
       case "Rain":
-        return  <img src="http://openweathermap.org/img/wn/10d.png" />
+        return "Smile under the rain"
       case "Snow":
-        return  <img src="http://openweathermap.org/img/wn/13d.png " />
+        return "Yesssss it's snowiiiiiing"
       case "Mist":
-        return  <img src="http://openweathermap.org/img/wn/50d.png" />
+        return "Mistic day"
       default:
         return null;
     }
-  }*/
+  }
+  console.log(comment)
+
+  if (loading) {
+    return (
+      <Loader
+         type="Puff"
+         color="#00BFFF"
+         height={100}
+         width={100}
+    />
+    )
+  }
+  
 
   return (
     <div className="App">
-      Your current position is : {city}
-      {/*"latitude: " + latitude + " longitude: " + longitude*/} 
-      <div>
-        The current temperature in {city} is :
-        {' '+ temperature.toFixed(0) + " degrees"}
-      </div>
-      <div>
-        The current weather is: 
+      <div className="boxed">
+        The weather is:
       <br />
-      {weather}
+        {weather}
+        <div>
+          <img src={"http://openweathermap.org/img/wn/" + weatherIcon + ".png"} />
+          <div className="comment">{comment()}</div>
+        </div>
       </div>
-      <img src={"http://openweathermap.org/img/wn/" + weatherIcon + ".png"}/>
+      <div className="">
+        The temperature in {city} is :
+        <div className="temperature">
+          {' ' + temperature.toFixed(0) + " °"}
+        </div>
+      </div>
 
-      {/*renderIcon()*/}
+      <div className="position">
+        Your current position is : {city}
+        {/*"latitude: " + latitude + " longitude: " + longitude*/}
+      </div>
+
     </div>
+
   );
-  }
+}
 
 
 export default App;
